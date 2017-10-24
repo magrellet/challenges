@@ -4,15 +4,12 @@
 
 int main()
 {
- 
-  char token[12] = "sarasa";
-  int len;
-  int i = 0;
+   
   int sum = 0;
   int maxToken = 0;
   int minToken = 0;
   int currValue = 0;
-  int tokenCounter = 10;
+  int tokenCounter = 0;
   
   printf("Welcome to token generator\n");
   printf("You may enter as may words as you like\n");
@@ -22,13 +19,13 @@ int main()
    
 //   summary(&sum, &maxToken, &minToken, &tokenCounter);
   
-   printf("suma %d \n", sum);
+   //printf("suma %d \n", sum);
+   
    return 0;
 }
 
 scanToken(int *s, int *current, int *max, int *min, int *counter){
-  int a;
- 
+     
   char token [100];  
   fgets (token, 100, stdin);
   int ascii = (int) token[0];
@@ -39,25 +36,58 @@ scanToken(int *s, int *current, int *max, int *min, int *counter){
   }
   else
   {
+  	*counter = *counter+1;
   	char *array = token;
-  	*s = sum(array);
+  	sumAndGetMinMax(array, current, s, min, max);
+  	
+  	printf("Current number of token entered: %d \n", *counter);
+ 	printf("Current token value: %d \n", *current);
+ 	printf("current final token value: %d \n ", *s);
+ 	scanToken(s, current, max, min, counter); // recursive until the user enter a 'q'
+
   }
   
 }
 
-int sum(char *array)
+sumAndGetMinMax(char *array, int *current, int*s, int *min, int *max)
 {
 	int i;
-	int sum=0;
+	*min = array[0];
+	*max = array[0];
+	*current = 0;
 	for(i=0;i<strlen(array);i++)
 	{
-		int ascii = (int) array[i];
-	  	sum += ascii;  	
+		int ascii = (int) array[i]; 
+		if (ascii == 10)//if enter a line , exit loop
+		{
+			break;
+		}
+		
+	  	*s += ascii;
+	  	*current +=ascii;
+	  	
+	  	if(ascii > *max){  
+     		*max = ascii;
+        }
+   		else {
+			if (ascii < *min){
+     			*min = ascii;
+      		}
+    	}
 	}
-	return sum;
 }
 
 summary(int *s, int *current, int *max, int *min, int *counter)
-{
-	printf("Summary\n %d %d %d %d \n", *s, *current, *max, *min, *counter);
+{	
+	if(*counter!=0)
+	{
+		printf("Summary\n %d %d %d %d %d \n", *s, *current, *max, *min, *counter);	
+		
+		printf("Number of tokens entered");
+		printf("Smalles token value");
+		printf("Largest token value");
+		printf("Final token value");
+		
+	}
+	
 }
