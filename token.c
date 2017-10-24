@@ -66,12 +66,13 @@ sumAndGetMinMax(char *array, int *current, int*s, int *min, int *max)
 	  	*s += ascii;
 	  	*current +=ascii;
 	  	
-	  	if(ascii > *max){  
-     		*max = ascii;
+	  	//TODO: Revisar logica
+	  	if(*current > *max){  
+     		*max = *current;
         }
    		else {
-			if (ascii < *min){
-     			*min = ascii;
+			if (*current < *min){
+     			*min = *current;
       		}
     	}
 	}
@@ -80,13 +81,12 @@ sumAndGetMinMax(char *array, int *current, int*s, int *min, int *max)
 summary(int *s, int *current, int *max, int *min, int *counter)
 {	
 	if(*counter!=0)
-	{
-		printf("Summary\n %d %d %d %d %d \n", *s, *current, *max, *min, *counter);	
+	{	
 		
-		printf("Number of tokens entered");
-		printf("Smalles token value");
-		printf("Largest token value");
-		printf("Final token value");
+		printf("Number of tokens entered: %d\n",  *counter);
+		printf("Smalles token value: %d \n", *min);
+		printf("Largest token value: %d \n", *max);
+		printf("Final token value: %d\n", *s);
 		
 	}
 	
